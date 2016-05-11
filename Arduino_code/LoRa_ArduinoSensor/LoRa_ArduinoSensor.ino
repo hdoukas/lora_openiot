@@ -96,8 +96,8 @@ void loop(void)
     Serial.println(stringvalue);
     stringvalue.toCharArray(message1, 10);
     
-    // Send message1 and print the result
-    e = sx1272.sendPacketTimeout(8, message1);
+    // Send (Broadcast) message1 and print the result
+    e = sx1272.sendPacketTimeout(0, message1);
     Serial.print(F("Packet sent, state "));
     Serial.println(e, DEC);
 
