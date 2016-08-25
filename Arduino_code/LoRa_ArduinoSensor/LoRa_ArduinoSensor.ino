@@ -71,8 +71,6 @@ void setup()
   
   // Print a start message
   Serial.println(F("SX1272 module and Arduino: send packets without ACK"));
-  
-  powerLoRaOn();
 
   temp = 0;
 
@@ -96,13 +94,15 @@ void loop(void)
     Serial.println(stringvalue);
     stringvalue.toCharArray(message1, 10);
     
+    // Power LoRa ON:
+    powerLoRaOn();
     // Send (Broadcast) message1 and print the result
     e = sx1272.sendPacketTimeout(0, message1);
     Serial.print(F("Packet sent, state "));
     Serial.println(e, DEC);
 
-    //power LoRa OFF:
-    //powerLoRaOff();
+    // Power LoRa OFF:
+    powerLoRaOff();
     
     
   }
@@ -112,8 +112,8 @@ void loop(void)
   if(time - temp > INTERVAL) {
     temp = time;
 
-    //power LoRa ON:
-    //powerLoRaOn();
+    // Power LoRa ON:
+    powerLoRaOn();
 
 
     sensorValue = analogRead(analogInPin);
@@ -127,8 +127,8 @@ void loop(void)
     Serial.print(F("Packet sent, state "));
     Serial.println(e, DEC);
 
-    //power LoRa OFF:
-    //powerLoRaOff();
+    // Power LoRa OFF:
+    powerLoRaOff();
   
   }
 
@@ -183,6 +183,7 @@ void powerLoRaOn() {
 
 void powerLoRaOff() {
  sx1272.OFF();
+ Serial.println(F("SX1272 module is OFF"));
 }
 
 
